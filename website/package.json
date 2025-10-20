@@ -3,11 +3,12 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "dev": "astro dev",
-        "start": "astro dev",
+        "astro": "astro",
         "build": "astro build",
+        "dev": "astro dev",
+        "format": "biome format --write .",
         "preview": "astro preview",
-        "astro": "astro"
+        "start": "astro dev"
     },
     "dependencies": {
         "@astrojs/starlight": "^0.36.1",
