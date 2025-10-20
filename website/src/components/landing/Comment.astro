@@ -1,5 +1,5 @@
 ---
-const { name, login, comment, avatar, href } = Astro.props
+const { name, login, body, avatar, href } = Astro.props
 ---
 
 <article class="comment">
@@ -24,7 +24,7 @@ const { name, login, comment, avatar, href } = Astro.props
         </div>
     </div>
     <blockquote class="comment-body">
-        <p>{comment}</p>
+        <p>{body}</p>
     </blockquote>
 </article>
 
@@ -50,6 +50,7 @@ const { name, login, comment, avatar, href } = Astro.props
         max-width: 48px;
         max-height: 48px;
         border-radius: 50%;
+        overflow: hidden;
     }
 
     .comment-login-link {
