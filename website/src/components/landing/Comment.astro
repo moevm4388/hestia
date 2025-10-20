@@ -1,0 +1,59 @@
+---
+const { name, login, comment, avatar, href } = Astro.props
+---
+
+<article class="comment">
+    <div class="comment-info not-content">
+        <img
+            class="comment-avatar"
+            src={avatar}
+            alt={`Фото профиля пользователя ${login}`}
+            width={48}
+            height={48}
+            loading="lazy"
+        />
+        <div class="comment-name-wrapper">
+            <b class="comment-name">{name}</b>
+            <a
+                class="comment-login-link"
+                href={href}
+                target="_blank"
+            >
+                <p class="comment-login">@{login}</p>
+            </a>
+        </div>
+    </div>
+    <blockquote class="comment-body">
+        <p>{comment}</p>
+    </blockquote>
+</article>
+
+<style>
+    .comment {
+        border: 1px solid var(--sl-color-gray-5);
+        padding: clamp(1rem, calc(0.125rem + 3vw), 1.5rem);
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+        justify-content: fill;
+    }
+
+    .comment-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .comment-avatar {
+        height: 100%;
+        width: 100%;
+        max-width: 48px;
+        max-height: 48px;
+        border-radius: 50%;
+    }
+
+    .comment-login-link {
+        text-decoration: none;
+        color: var(--sl-color-accent-high);
+    }
+</style>
