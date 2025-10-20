@@ -1,0 +1,8 @@
+- id: 1
+  name: John Doe
+  login: johndoe123
+  avatar: https://example.com/image.png
+  href: https://example.com
+  body: |
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    incididunt ut labore et dolore magna aliqua.
