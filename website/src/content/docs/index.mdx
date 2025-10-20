@@ -1,40 +1,50 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: Hestia
+description: Система компьютерной алгебры
+template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Система компьютерной алгебры
   image:
     file: ../../assets/houston.webp
   actions:
-    - text: Example Guide
+    - text: Документация
       link: /guides/example/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: Исходный код (GitHub)
+      link: https://github.com/moevm4388/hestia
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Comment, Heading } from '@components/landing';
+import { getCollection } from 'astro:content'
 
-## Next steps
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="CLI" icon="right-caret">
+        Интерфейс командной строки для вызова функций модулей системы. Идеально
+        подходит для скриптов и автоматизации.
 	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
+	<Card title="TUI" icon="document">
+        Текстовый пользовательский интерфейс для удобных вычислений прямо из
+        терминала.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="GUI" icon="rocket">
+        Графическое приложение на GTK4.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Библиотека" icon="seti:python">
+        Используйте Hestia как вычислительную библиотеку для Python, с понятной
+        и расширяемой архитектурой и идиоматичным API.
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+</CardGrid>
+
+<Heading>Система, любимая пользователями</Heading>
+
+<CardGrid stagger>
+    {(await getCollection('comments'))
+        .map(comment => (
+            <Comment {...comment.data} />
+        ))
+    }
 </CardGrid>
