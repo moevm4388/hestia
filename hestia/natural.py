@@ -41,7 +41,7 @@ class NaturalNumber:
         v.value = digits
         return v
 
-class NaturalModul(Module):
+class NaturalModule(Module):
     def __init__(self):
         """
         Инициализация модуля натуральных чисел.
