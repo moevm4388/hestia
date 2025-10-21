@@ -44,6 +44,7 @@ class NaturalNumber:
         v.value = digits
         return v
 
+
 class NaturalModule(Module):
     def __init__(self):
         """
@@ -74,6 +75,7 @@ class NaturalModule(Module):
         """
         N-3. Добавляет к числу n единицу.
         """
+        ...
 
     def adding(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
