@@ -8,6 +8,7 @@
 from common.exceptions import UnknownIdentifierError
 from common.types import Identifier, Module
 from common.utils import ensure_args
+from typing import Any
 
 
 class NaturalNumber:
@@ -144,7 +145,7 @@ class NaturalModule(Module):
         """
         ...
 
-    def call(self, identifier: Identifier, args: list[str]) -> any:
+    def call(self, identifier: Identifier, args: list[str]) -> Any:
         """
         Вызывает метод модуля по идентификатору.
         identifier - идентификатор вызываемого метода
