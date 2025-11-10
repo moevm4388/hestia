@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=hestia
+Comment=Computer algebra system
+Exec=/opt/hestia/main.py
+Icon=hestia
+Terminal=true
+Type=Application
+Categories=Math;
+Keywords=education;math;university;hestia;
