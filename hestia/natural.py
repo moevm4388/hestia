@@ -76,9 +76,7 @@ class NaturalModule(Module):
         "да", если n = 0
         "нет", иначе
         """
-        if len(n.value) == 1 and n.value[0] == 0:
-            return True
-        return False
+        return len(n.value) == 1 and n.value[0] == 0
     
     def add_one(self, n: NaturalNumber) -> NaturalNumber:
         """
@@ -268,7 +266,7 @@ class NaturalModule(Module):
         """
         a = NaturalNumber.from_digits(n1.value.copy())
         b = NaturalNumber.from_digits(n2.value.copy())
-        while self.is_zero(b):
+        while not self.is_zero(b):
             r = self.modulus(a, b)
             a, b = b, r
         return a
