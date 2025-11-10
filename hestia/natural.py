@@ -8,6 +8,7 @@
 from common.exceptions import UnknownIdentifierError
 from common.types import Identifier, Module
 from common.utils import ensure_args
+from typing import Any
 
 class NaturalNumber:
     def __init__(self, value: int) -> None:
@@ -42,7 +43,7 @@ class NaturalNumber:
         v.value = digits
         return v
 
-class NaturalModul(Module):
+class NaturalModule(Module):
     def __init__(self):
         """
         Инициализация модуля натуральных чисел.
@@ -83,17 +84,7 @@ class NaturalModul(Module):
         """
         N-3. Добавляет к числу n единицу.
         """
-        digits = n.value.copy()
-        carry = 1
-        for i in range(len(digits)):
-            s = digits[i] + carry
-            digits[i] = s % 10
-            carry = s // 10
-            if carry == 0:
-                break
-        if carry > 0:
-            digits.append(carry)
-        return NaturalNumber.from_digits(digits)
+        ...
 
     def adding(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
@@ -282,7 +273,7 @@ class NaturalModul(Module):
         product = self.multiplication(n1, n2)
         return self.quotient(product, g)  
 
-    def call(self, identifier: Identifier, args: list[str]) -> any:
+    def call(self, identifier: Identifier, args: list[str]) -> Any:
         """
         Вызывает метод модуля по идентификатору.
         identifier - идентификатор вызываемого метода
