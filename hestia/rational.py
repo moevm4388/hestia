@@ -77,7 +77,7 @@ class RationalModule(Module):
         )
 
         """
-        НОД = 1 - сокращение не требуется (взаимно простые)
+        НОД = 1 -> сокращение не требуется (взаимно простые)
         """
         if self.natural_module.comparison(gcd, NaturalNumber(1)) == 0:
             return q
@@ -107,7 +107,7 @@ class RationalModule(Module):
         return self.natural_module.comparison(
                     q.denominator,
                     NaturalNumber(1)
-                ) == 0
+                    ) == 0
 
     def integer_to_rational(self, z: Integer) -> RationalNumber:
         """
@@ -257,12 +257,13 @@ class RationalModule(Module):
         """
         Проверка q2 на ноль.
         """
+
         natural_numerator = self.natural_module.integer_to_natural(
             q2.numerator
-        )  # NaturalNumber для дальнейшего сравнения с 0
+        ) #NaturalNumber
 
-        if self.natural_module.is_zero(natural_numerator) == 'да':
-            raise ZeroDivisionError("Деление на ноль недопустимо")
+        if self.natural_module.is_zero(natural_numerator):
+            raise ZeroDivisionError("Деление на ноль недопустимо!")
 
         """
         Деление рациональных дробей - умножение на обратную.
@@ -272,12 +273,21 @@ class RationalModule(Module):
         """
 
         numerator = self.integer_module.multiplication(
-                        q1.numerator, q2.denominator
-                    )
+            q1.numerator,
+            self.integer_module.natural_to_integer(q2.denominator)
+        )
+
+        """
+        q2.n - целое число -> может дать отрицательность -> проверяем знак
+        """
+
+        sign = -1 if self.integer_module.sign_determination(q2.numerator) == 1 else 1
+        numerator = self.integer_module.multiplication(numerator, Integer(sign))
 
         denominator = self.natural_module.multiplication(
-                        q1.denominator, q2.numerator
-                    )
+            q1.denominator,
+            self.integer_module.integer_to_natural(q2.numerator)
+        )
 
         return self.reduce_fraction(RationalNumber(numerator, denominator))
 
