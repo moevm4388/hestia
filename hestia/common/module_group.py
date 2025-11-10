@@ -17,12 +17,12 @@ class ModuleGroup(Module):
         Вызывает метод, если он реализуется хотя бы одним модулем из группы.
 
         Если несколько модулей реализуют метод, вызывается метод того модуля,
-        который был указан первым в конструкторе
+        который был указан первым в конструкторе.
 
         :param identifier: Идентификатор метода
         :param args: Аргументы метода
         :returns: Результат вызова метода
-        :raises: UnknownIdentifierError, если метод не реализован ни одним модулем
+        :raises UnknownIdentifierError: если метод не реализован ни одним модулем
         """
         for module in self.__modules:
             if identifier in module.methods():
