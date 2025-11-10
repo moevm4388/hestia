@@ -84,7 +84,17 @@ class NaturalModule(Module):
         """
         N-3. Добавляет к числу n единицу.
         """
-        ...
+        digits = n.value.copy()
+        carry = 1
+        for i in range(len(digits)):
+            s = digits[i] + carry
+            digits[i] = s % 10
+            carry = s // 10
+            if carry == 0:
+                break
+        if carry > 0:
+            digits.append(carry)
+        return NaturalNumber.from_digits(digits)
 
     def adding(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
