@@ -117,30 +117,25 @@ class NaturalModule(Module):
         """
         N-5. Вычитает из первого большего натурального числа n1 второе меньшее или равное n2.
         """
-        comp = self.comparison(n1, n2)
-        if comp == 0:
-            return NaturalNumber.from_digits([0])
+        cmp = self.comparison(n1, n2)
 
-        a = n1.value.copy()
-        b = n2.value.copy()
+        a = n1.value[:]
+        b = n2.value[:]
         result = []
-        borrow = 0
+        borrow = 0 
 
         for i in range(len(a)):
             d1 = a[i]
             d2 = b[i] if i < len(b) else 0
-            if d1 - borrow < d2:
-                base_digit = NaturalNumber.from_digits([d1 - borrow])
-                add_ten = NaturalNumber.from_digits([10])
-                compensated = self.adding(base_digit, add_ten)
-                current_digit = compensated.value[0] - d2
+
+            diff = d1 - d2 - borrow
+            if diff < 0:
+                diff += 10
                 borrow = 1
             else:
-                current_digit = d1 - borrow - d2
                 borrow = 0
 
-            result.append(current_digit)
-
+            result.append(diff)
         while len(result) > 1 and result[-1] == 0:
             result.pop()
 
