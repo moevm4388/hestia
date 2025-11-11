@@ -6,11 +6,12 @@
 - Гриценко Кирилл <kirill.grizenko53@gmail.com>
 """
 
-from common.exceptions import UnknownIdentifierError
-from common.types import Identifier, Module
-from common.utils import ensure_args
 from typing import Any
-from natural import NaturalNumber, NaturalModule
+
+from hestia.common.exceptions import UnknownIdentifierError
+from hestia.common.types import Identifier, Module
+from hestia.common.utils import ensure_args
+from hestia.natural import NaturalNumber, NaturalModule
 
 
 class Integer:

@@ -2,6 +2,6 @@
 
 WORKDIR="$(dirname "$(readlink -f "$0")")"
 INTERPRETER="$WORKDIR/usr/lib/venv/bin/python3"
-SCRIPT="$WORKDIR/opt/hestia/main.py"
+cd "$WORKDIR/opt"
 
-$INTERPRETER $SCRIPT $@
+$INTERPRETER -m hestia.main "$@"

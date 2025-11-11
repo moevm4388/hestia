@@ -5,12 +5,12 @@
 - Кислица Сергей <andret23232347@mail.ru>
 """
 
-from common.exceptions import UnknownIdentifierError
-from common.types import Identifier, Module
-from common.utils import ensure_args
-from rational import RationalNumber, RationalModule
-from integer import Integer, IntegerModule
-from natural import NaturalNumber, NaturalModule
+from hestia.common.exceptions import UnknownIdentifierError
+from hestia.common.types import Identifier, Module
+from hestia.common.utils import ensure_args
+from hestia.rational import RationalNumber, RationalModule
+from hestia.integer import Integer, IntegerModule
+from hestia.natural import NaturalNumber, NaturalModule
 
 
 class Polynomial:
