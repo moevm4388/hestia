@@ -4,6 +4,8 @@ import starlight from "@astrojs/starlight"
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'https://moevm4388.github.io/hestia',
+
     i18n: {
         locales: ["ru"],
         defaultLocale: "ru",
