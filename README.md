@@ -1,4 +1,14 @@
+
+<div align = center>
+    
 # hestia
+
+Система компьютерной алгебры
+
+&ensp;[<kbd> <br> Установка <br> </kbd>](https://moevm4388.github.io/hestia/guides/installation/)&ensp;
+&ensp;[<kbd> <br> Использование <br> </kbd>](https://moevm4388.github.io/hestia/guides/usage/)&ensp;
+
+</div>
 
 ## Установка
 
@@ -35,7 +45,7 @@
 Общий синтаксис команды:
 
 ```sh
-hestia --function <NAME> --args `<ARGS>`
+hestia --function <NAME> --args <ARGS>
 ```
 
 Где:
