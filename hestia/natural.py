@@ -18,14 +18,22 @@ class NaturalNumber:
         if value == 0:
             self.value = [0]
             return
+        
         res = []
-        while value > 0:
-            res.append(value % 10)
-            value //=10
+        temp = value
+        while temp > 0:
+            res.append(temp % 10)
+            temp //= 10
         self.value = res
 
     def __str__(self) -> str:
         return ''.join(str(n) for n in reversed(self.value))
+    
+    def __eq__(self, other) -> bool:
+        """Проверка на равенство."""
+        if not isinstance(other, NaturalNumber):
+            return False
+        return self.value == other.value
     
     @classmethod
     def from_str(cls, s: str) -> "NaturalNumber":
@@ -39,8 +47,13 @@ class NaturalNumber:
 
     @classmethod
     def from_digits(cls, digits: list[int]) -> "NaturalNumber":
+        # Убираем ведущие нули
+        cleaned_digits = digits.copy()
+        while len(cleaned_digits) > 1 and cleaned_digits[-1] == 0:
+            cleaned_digits.pop()
+        
         v = cls(0)
-        v.value = digits
+        v.value = cleaned_digits
         return v
 
 class NaturalModule(Module):
@@ -62,6 +75,7 @@ class NaturalModule(Module):
             return 2
         elif len(n2.value) > len(n1.value):
             return 1
+        
         for i in range(len(n1.value)-1, -1, -1):
             if n1.value[i] > n2.value[i]:
                 return 2
@@ -117,30 +131,29 @@ class NaturalModule(Module):
         """
         N-5. Вычитает из первого большего натурального числа n1 второе меньшее или равное n2.
         """
-        comp = self.comparison(n1, n2)
-        if comp == 0:
-            return NaturalNumber.from_digits([0])
+        cmp = self.comparison(n1, n2)
+        if cmp == 1:  # n1 < n2
+            raise ValueError("Первое число должно быть больше или равно второму")
 
-        a = n1.value.copy()
-        b = n2.value.copy()
+        a = n1.value[:]
+        b = n2.value[:]
         result = []
-        borrow = 0
+        borrow = 0 
 
         for i in range(len(a)):
             d1 = a[i]
             d2 = b[i] if i < len(b) else 0
-            if d1 - borrow < d2:
-                base_digit = NaturalNumber.from_digits([d1 - borrow])
-                add_ten = NaturalNumber.from_digits([10])
-                compensated = self.adding(base_digit, add_ten)
-                current_digit = compensated.value[0] - d2
+
+            diff = d1 - d2 - borrow
+            if diff < 0:
+                diff += 10
                 borrow = 1
             else:
-                current_digit = d1 - borrow - d2
                 borrow = 0
 
-            result.append(current_digit)
-
+            result.append(diff)
+        
+        # Убираем ведущие нули
         while len(result) > 1 and result[-1] == 0:
             result.pop()
 
@@ -150,6 +163,9 @@ class NaturalModule(Module):
         """
         N-6. Умножает натуральное число n на цифру digit.
         """
+        if digit < 0 or digit > 9:
+            raise ValueError("Цифра должна быть от 0 до 9")
+            
         if digit == 0:
             return NaturalNumber.from_digits([0])
         digits = n.value.copy()
@@ -167,8 +183,10 @@ class NaturalModule(Module):
         """
         N-7. Умножает натуральное число n на 10^k.
         """
+        if k < 0:
+            raise ValueError("Степень не может быть отрицательной")
         if k == 0:
-            return NaturalNumber(n.value.copy())
+            return NaturalNumber.from_digits(n.value.copy())
         result = [0] * k + n.value
         return NaturalNumber.from_digits(result)
     
@@ -181,7 +199,7 @@ class NaturalModule(Module):
         result = NaturalNumber.from_digits([0])
         for i in range(len(n2.value)):
             partial_product = self.multiply_by_digit(n1, n2.value[i])
-            shifted_product = self.multiply_by_power_of_ten(partial_product, i)
+            shifted_product = self.multiply_by_power_of_10(partial_product, i)
             result = self.adding(result, shifted_product)
 
         return result
@@ -191,6 +209,9 @@ class NaturalModule(Module):
         N-9. Вычитание из натурального n1 другого натурального n2, умноженного на цифру digit
         для случая с неотрицательным результатом.
         """
+        if digit < 0 or digit > 9:
+            raise ValueError("Цифра должна быть от 0 до 9")
+            
         n2d = self.multiply_by_digit(n2, digit)
         return self.subtracting(n1, n2d)
 
@@ -216,6 +237,9 @@ class NaturalModule(Module):
         """
         N-11. Неполное частное от деления первого натурального числа n1 на второе n2>0 с остатком.
         """
+        if self.is_zero(n2):
+            raise ValueError("Деление на ноль")
+
         if self.comparison(n1, n2) == 1:
             return NaturalNumber(0)
 
@@ -232,6 +256,8 @@ class NaturalModule(Module):
 
             r = self.subtract_with_digit(r, n2k, d)
             q[k] += d
+        
+        # Убираем ведущие нули
         while len(q) > 1 and q[-1] == 0:
             q.pop()
 
@@ -241,6 +267,9 @@ class NaturalModule(Module):
         """
         N-12. Остаток от деления первого натурального числа n1 на второе натуральное n2>0.
         """
+        if self.is_zero(n2):
+            raise ValueError("Деление на ноль")
+            
         if self.comparison(n1, n2) == 1:
             return NaturalNumber.from_digits(n1.value[:])
         r = NaturalNumber.from_digits(n1.value[:])
@@ -255,6 +284,8 @@ class NaturalModule(Module):
                 n2k = self.multiply_by_power_of_10(n2, k)
 
             r = self.subtract_with_digit(r, n2k, d)
+        
+        # Убираем ведущие нули
         while len(r.value) > 1 and r.value[-1] == 0:
             r.value.pop()
 
