@@ -13,3 +13,6 @@ Homepage = "https://moevm4388.github.io/hestia"
 Documentation = "https://moevm4388.github.io/hestia"
 Repository = "https://github.com/moevm4388/hestia"
 Issues = "https://github.com/moevm4388/hestia/issues"
+
+[tool.setuptools]
+packages = ["hestia"]
