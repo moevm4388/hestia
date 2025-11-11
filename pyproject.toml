@@ -15,4 +15,4 @@ Repository = "https://github.com/moevm4388/hestia"
 Issues = "https://github.com/moevm4388/hestia/issues"
 
 [tool.setuptools]
-packages = ["hestia"]
+packages = ["hestia", "hestia.common"]
