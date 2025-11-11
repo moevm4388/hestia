@@ -15,4 +15,8 @@ Repository = "https://github.com/moevm4388/hestia"
 Issues = "https://github.com/moevm4388/hestia/issues"
 
 [tool.setuptools]
-packages = ["hestia", "hestia.common"]
+packages = {find = {}}
+
+[tool.setuptools.packages.find]
+where = ["."] 
+exclude = ["website"]
