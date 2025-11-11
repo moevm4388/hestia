@@ -4,11 +4,9 @@ description: Система компьютерной алгебры
 template: splash
 hero:
   tagline: Система компьютерной алгебры
-  image:
-    file: ../../assets/houston.webp
   actions:
-    - text: Документация
-      link: /guides/example/
+    - text: Установка
+      link: /guides/installation/
       icon: right-arrow
     - text: Исходный код (GitHub)
       link: https://github.com/moevm4388/hestia
@@ -20,22 +18,18 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 import { Comment, Heading } from '@components/landing';
 import { getCollection } from 'astro:content'
 
-
 <CardGrid stagger>
 	<Card title="CLI" icon="right-caret">
         Интерфейс командной строки для вызова функций модулей системы. Идеально
         подходит для скриптов и автоматизации.
 	</Card>
-	<Card title="TUI" icon="document">
-        Текстовый пользовательский интерфейс для удобных вычислений прямо из
-        терминала.
-	</Card>
-	<Card title="GUI" icon="rocket">
-        Графическое приложение на GTK4.
-	</Card>
 	<Card title="Библиотека" icon="seti:python">
         Используйте Hestia как вычислительную библиотеку для Python, с понятной
         и расширяемой архитектурой и идиоматичным API.
+	</Card>
+	<Card title="OCI образ" icon="seti:docker">
+        Запускайте и используйте Hestia при помощи Docker или Podman, используя
+        готовый OCI образ.
 	</Card>
 </CardGrid>
 
