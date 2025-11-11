@@ -1,8 +1,39 @@
 - id: 1
   name: John Doe
   login: johndoe123
-  avatar: https://example.com/image.png
+  avatar: "https://otvet.mail.ru/api/pictures/images/bc3959cbaf61d3edebc24b5ed549da70889267fc4b46ab1bfcaeea8d8d30e37ceed280bc10bc34be8ddb5b2700d9646d.jpg?size=origin"
   href: https://example.com
   body: |
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua.
+    Никогда так эпично не вычислял 2 + 2
+
+- id: 2
+  name: "imTOTALLYnormal"
+  login: nobodysaidthis
+  avatar: "https://i.pinimg.com/736x/db/87/06/db87069e272e99b40d7cb9df8a56ea9e.jpg"
+  href: https://github.com/shelepuginivan
+  body: |
+    С-скиньте тг архитектора (〃￣ω￣〃ゞ
+
+- id: 3
+  name: "admin"
+  login: admin
+  avatar: "https://cms.risazatvorchestvo.com/wp-content/uploads/2024/12/IMG_7582.png"
+  href: https://github.com/shelepuginivan
+  body: |
+    Нормальная система. Это весь отзыв
+
+- id: 4
+  name: "Витя играет в компуктер"
+  login: VictorGaming
+  avatar: "https://i.pinimg.com/736x/eb/8c/ba/eb8cba7ff7973794e0b5e3209667a84c.jpg"
+  href: https://ru.wikipedia.org/wiki/Калькулятор
+  body: |
+    Калькуляторы так умели 50 лет назад
+
+- id: 5
+  name: "Корпорация H (Promoted)"
+  login: HCorpOfficial
+  avatar: "https://semeiniy.kz/wa-data/public/shop/products/54/55/105554/images/46612/46612.970.jpg"
+  href: https://www.youtube.com/watch?v=xvFZjo5PgG0
+  body: |
+    Здесь могла быть реклама вашего йогурта
