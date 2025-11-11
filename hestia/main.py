@@ -9,6 +9,7 @@ from common.types import Identifier
 from natural import NaturalModule
 from integer import IntegerModule
 from rational import RationalModule
+from polynomial import PolynomialModule
 
 
 class ExitCode(int, Enum):
@@ -21,11 +22,15 @@ def build_module_group() -> ModuleGroup:
     natural_module = NaturalModule()
     integer_module = IntegerModule(natural_module)
     rational_module = RationalModule(natural_module, integer_module)
+    polynomial_module = PolynomialModule(
+        natural_module, integer_module, rational_module
+    )
 
     return ModuleGroup(
         natural_module,
         integer_module,
         rational_module,
+        polynomial_module,
     )
 
 

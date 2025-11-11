@@ -14,6 +14,7 @@ from typing import Any
 from natural import NaturalNumber, NaturalModule
 from integer import Integer, IntegerModule
 
+
 class RationalNumber:
     def __init__(self, numerator: Integer, denominator: NaturalNumber):
         """
@@ -37,11 +38,11 @@ class RationalNumber:
         """
         if self.numerator == 0:
             return str(self.numerator)
-        
+
         # Если знаменатель равен 1, выводим только числитель
         if self.denominator == NaturalNumber(1):
             return str(self.numerator)
-        
+
         return str(self.numerator) + "/" + str(self.denominator)
 
     @classmethod
@@ -55,7 +56,7 @@ class RationalNumber:
 
         numerator = Integer.from_str(s[0])
         denominator = NaturalNumber.from_str(s[1])
-        
+
         if denominator == NaturalNumber(0):
             raise ValueError("Знаменатель не может быть нулем")
 
@@ -67,6 +68,7 @@ class RationalNumber:
             return False
         # Для упрощения сравнения в тестах
         return str(self) == str(other)
+
 
 class RationalModule(Module):
     def __init__(self, natural_module: NaturalModule, integer_module: IntegerModule):
@@ -85,22 +87,17 @@ class RationalModule(Module):
         """
 
         gcd = self.natural_module.gcd(
-            self.integer_module.absolute_value(q.numerator),
-            q.denominator
+            self.integer_module.absolute_value(q.numerator), q.denominator
         )
 
         if self.natural_module.comparison(gcd, NaturalNumber(1)) == 0:
             return q
 
         numerator = self.integer_module.quotient(
-            q.numerator,
-            self.integer_module.natural_to_integer(gcd)
+            q.numerator, self.integer_module.natural_to_integer(gcd)
         )
 
-        denominator = self.natural_module.quotient(
-            q.denominator,
-            gcd
-        )
+        denominator = self.natural_module.quotient(q.denominator, gcd)
 
         return RationalNumber(numerator, denominator)
 
@@ -114,16 +111,12 @@ class RationalModule(Module):
 
         q = self.reduce_fraction(q)
 
-        return self.natural_module.comparison(
-                    q.denominator,
-                    NaturalNumber(1)
-                    ) == 0
+        return self.natural_module.comparison(q.denominator, NaturalNumber(1)) == 0
 
     def integer_to_rational(self, z: Integer) -> RationalNumber:
         """
         Q-3. Преобразование целого в дробное
         """
-
 
         return RationalNumber(z, NaturalNumber(1))
 
@@ -143,32 +136,19 @@ class RationalModule(Module):
         Q-5. Сложение дробей
         """
 
-        left_numerator  = self.integer_module.multiplication(
-            q1.numerator,
-            self.integer_module.natural_to_integer(
-                q2.denominator
-            )
+        left_numerator = self.integer_module.multiplication(
+            q1.numerator, self.integer_module.natural_to_integer(q2.denominator)
         )
 
         right_numerator = self.integer_module.multiplication(
-            q2.numerator,
-            self.integer_module.natural_to_integer(
-                q1.denominator
-            )
+            q2.numerator, self.integer_module.natural_to_integer(q1.denominator)
         )
 
-        numerator = self.integer_module.addition(
-            left_numerator,
-            right_numerator
-        )
+        numerator = self.integer_module.addition(left_numerator, right_numerator)
 
-        denominator = self.natural_module.multiplication(
-            q1.denominator,
-            q2.denominator
-        )
+        denominator = self.natural_module.multiplication(q1.denominator, q2.denominator)
 
         return self.reduce_fraction(RationalNumber(numerator, denominator))
-
 
     def subtraction(self, q1: RationalNumber, q2: RationalNumber) -> RationalNumber:
         """
@@ -176,28 +156,16 @@ class RationalModule(Module):
         """
 
         left_numerator = self.integer_module.multiplication(
-            q1.numerator,
-            self.integer_module.natural_to_integer(
-                q2.denominator
-            )
+            q1.numerator, self.integer_module.natural_to_integer(q2.denominator)
         )
 
         right_numerator = self.integer_module.multiplication(
-            q2.numerator,
-            self.integer_module.natural_to_integer(
-                q1.denominator
-            )
+            q2.numerator, self.integer_module.natural_to_integer(q1.denominator)
         )
 
-        numerator = self.integer_module.subtraction(
-            left_numerator,
-            right_numerator
-        )
+        numerator = self.integer_module.subtraction(left_numerator, right_numerator)
 
-        denominator = self.natural_module.multiplication(
-            q1.denominator,
-            q2.denominator
-        )
+        denominator = self.natural_module.multiplication(q1.denominator, q2.denominator)
 
         return self.reduce_fraction(RationalNumber(numerator, denominator))
 
@@ -206,13 +174,9 @@ class RationalModule(Module):
         Q-7. Умножение дробей
         """
 
-        numerator = self.integer_module.multiplication(
-                        q1.numerator, q2.numerator
-                    )
+        numerator = self.integer_module.multiplication(q1.numerator, q2.numerator)
 
-        denominator = self.natural_module.multiplication(
-                        q1.denominator, q2.denominator
-                    )
+        denominator = self.natural_module.multiplication(q1.denominator, q2.denominator)
 
         return self.reduce_fraction(RationalNumber(numerator, denominator))
 
@@ -227,18 +191,15 @@ class RationalModule(Module):
         if self.integer_module.sign_determination(q2.numerator) == 0:
             raise ZeroDivisionError("Деление на ноль недопустимо!")
 
-
         numerator = self.integer_module.multiplication(
-            q1.numerator,
-            self.integer_module.natural_to_integer(q2.denominator)
+            q1.numerator, self.integer_module.natural_to_integer(q2.denominator)
         )
 
         denominator = self.natural_module.multiplication(
-            q1.denominator,
-            self.integer_module.integer_to_natural(q2.numerator)
+            q1.denominator, self.integer_module.integer_to_natural(q2.numerator)
         )
 
-        if self.integer_module.sign_determination(q2.numerator) == 1:  
+        if self.integer_module.sign_determination(q2.numerator) == 1:
             numerator = self.integer_module.multiply_by_minus_one(numerator)
 
         return self.reduce_fraction(RationalNumber(numerator, denominator))
@@ -292,7 +253,6 @@ class RationalModule(Module):
             case _:
                 raise UnknownIdentifierError(identifier)
 
-
     def methods(self) -> set[Identifier]:
         return {
             Identifier.RED_Q_Q,
@@ -302,5 +262,5 @@ class RationalModule(Module):
             Identifier.ADD_QQ_Q,
             Identifier.SUB_QQ_Q,
             Identifier.MUL_QQ_Q,
-            Identifier.DIV_QQ_Q
+            Identifier.DIV_QQ_Q,
         }

@@ -1,24 +1,26 @@
 """
-    Модуль натуральных чисел
-    Авторы:
-    - Калениченко Светлана <calenichenko.s@yandex.ru>
-    - Донцова Ирина
-    - Митин Георгий
+Модуль натуральных чисел
+Авторы:
+- Калениченко Светлана <calenichenko.s@yandex.ru>
+- Донцова Ирина
+- Митин Георгий
 """
+
 from common.exceptions import UnknownIdentifierError
 from common.types import Identifier, Module
 from common.utils import ensure_args
 from typing import Any
 
+
 class NaturalNumber:
     def __init__(self, value: int) -> None:
         if value < 0:
             raise ValueError("Натуральные числа не могут быть меньше 0")
-        
+
         if value == 0:
             self.value = [0]
             return
-        
+
         res = []
         temp = value
         while temp > 0:
@@ -27,14 +29,14 @@ class NaturalNumber:
         self.value = res
 
     def __str__(self) -> str:
-        return ''.join(str(n) for n in reversed(self.value))
-    
+        return "".join(str(n) for n in reversed(self.value))
+
     def __eq__(self, other) -> bool:
         """Проверка на равенство."""
         if not isinstance(other, NaturalNumber):
             return False
         return self.value == other.value
-    
+
     @classmethod
     def from_str(cls, s: str) -> "NaturalNumber":
         try:
@@ -51,10 +53,11 @@ class NaturalNumber:
         cleaned_digits = digits.copy()
         while len(cleaned_digits) > 1 and cleaned_digits[-1] == 0:
             cleaned_digits.pop()
-        
+
         v = cls(0)
         v.value = cleaned_digits
         return v
+
 
 class NaturalModule(Module):
     def __init__(self):
@@ -65,18 +68,18 @@ class NaturalModule(Module):
 
     def comparison(self, n1: NaturalNumber, n2: NaturalNumber) -> int:
         """
-        N-1. Сравнивает 2 натуральных числа n1 и n2. 
+        N-1. Сравнивает 2 натуральных числа n1 и n2.
         Возвращает:
          2, если n1 > n2
          0, если n1 = n2
-         1, иначе 
+         1, иначе
         """
         if len(n1.value) > len(n2.value):
             return 2
         elif len(n2.value) > len(n1.value):
             return 1
-        
-        for i in range(len(n1.value)-1, -1, -1):
+
+        for i in range(len(n1.value) - 1, -1, -1):
             if n1.value[i] > n2.value[i]:
                 return 2
             elif n2.value[i] > n1.value[i]:
@@ -91,7 +94,7 @@ class NaturalModule(Module):
         "нет", иначе
         """
         return len(n.value) == 1 and n.value[0] == 0
-    
+
     def add_one(self, n: NaturalNumber) -> NaturalNumber:
         """
         N-3. Добавляет к числу n единицу.
@@ -126,7 +129,7 @@ class NaturalModule(Module):
         if carry > 0:
             result.append(carry)
         return NaturalNumber.from_digits(result)
-    
+
     def subtracting(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
         N-5. Вычитает из первого большего натурального числа n1 второе меньшее или равное n2.
@@ -138,7 +141,7 @@ class NaturalModule(Module):
         a = n1.value[:]
         b = n2.value[:]
         result = []
-        borrow = 0 
+        borrow = 0
 
         for i in range(len(a)):
             d1 = a[i]
@@ -152,20 +155,20 @@ class NaturalModule(Module):
                 borrow = 0
 
             result.append(diff)
-        
+
         # Убираем ведущие нули
         while len(result) > 1 and result[-1] == 0:
             result.pop()
 
         return NaturalNumber.from_digits(result)
-    
+
     def multiply_by_digit(self, n: NaturalNumber, digit: int) -> NaturalNumber:
         """
         N-6. Умножает натуральное число n на цифру digit.
         """
         if digit < 0 or digit > 9:
             raise ValueError("Цифра должна быть от 0 до 9")
-            
+
         if digit == 0:
             return NaturalNumber.from_digits([0])
         digits = n.value.copy()
@@ -178,7 +181,7 @@ class NaturalModule(Module):
         if carry > 0:
             result.append(carry)
         return NaturalNumber.from_digits(result)
-    
+
     def multiply_by_power_of_10(self, n: NaturalNumber, k: int) -> NaturalNumber:
         """
         N-7. Умножает натуральное число n на 10^k.
@@ -189,7 +192,7 @@ class NaturalModule(Module):
             return NaturalNumber.from_digits(n.value.copy())
         result = [0] * k + n.value
         return NaturalNumber.from_digits(result)
-    
+
     def multiplication(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
         N-8. Умножает два натуральных числа n1 и n2.
@@ -203,21 +206,23 @@ class NaturalModule(Module):
             result = self.adding(result, shifted_product)
 
         return result
-    
-    def subtract_with_digit(self, n1: NaturalNumber, n2: NaturalNumber, digit: int) -> NaturalNumber:
+
+    def subtract_with_digit(
+        self, n1: NaturalNumber, n2: NaturalNumber, digit: int
+    ) -> NaturalNumber:
         """
         N-9. Вычитание из натурального n1 другого натурального n2, умноженного на цифру digit
         для случая с неотрицательным результатом.
         """
         if digit < 0 or digit > 9:
             raise ValueError("Цифра должна быть от 0 до 9")
-            
+
         n2d = self.multiply_by_digit(n2, digit)
         return self.subtracting(n1, n2d)
 
     def first_digit(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
-        N-10. Вычисление первой цифры деления большего натурального на меньшее, 
+        N-10. Вычисление первой цифры деления большего натурального на меньшее,
         домноженное на 10^k,где k - номер позиции этой цифры (номер считается с нуля).
         """
         if self.comparison(n1, n2) == 1:
@@ -232,7 +237,7 @@ class NaturalModule(Module):
         while d < 9 and self.comparison(n1, self.multiply_by_digit(n2k, d + 1)) != 1:
             d += 1
         return NaturalNumber(d)
-    
+
     def quotient(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
         N-11. Неполное частное от деления первого натурального числа n1 на второе n2>0 с остатком.
@@ -256,20 +261,20 @@ class NaturalModule(Module):
 
             r = self.subtract_with_digit(r, n2k, d)
             q[k] += d
-        
+
         # Убираем ведущие нули
         while len(q) > 1 and q[-1] == 0:
             q.pop()
 
         return NaturalNumber.from_digits(q)
-    
+
     def modulus(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
         N-12. Остаток от деления первого натурального числа n1 на второе натуральное n2>0.
         """
         if self.is_zero(n2):
             raise ValueError("Деление на ноль")
-            
+
         if self.comparison(n1, n2) == 1:
             return NaturalNumber.from_digits(n1.value[:])
         r = NaturalNumber.from_digits(n1.value[:])
@@ -284,13 +289,13 @@ class NaturalModule(Module):
                 n2k = self.multiply_by_power_of_10(n2, k)
 
             r = self.subtract_with_digit(r, n2k, d)
-        
+
         # Убираем ведущие нули
         while len(r.value) > 1 and r.value[-1] == 0:
             r.value.pop()
 
         return r
-    
+
     def gcd(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
         N-13. НОД натуральных чисел n1 и n2.
@@ -301,7 +306,7 @@ class NaturalModule(Module):
             r = self.modulus(a, b)
             a, b = b, r
         return a
-    
+
     def lcm(self, n1: NaturalNumber, n2: NaturalNumber) -> NaturalNumber:
         """
         N-14. НОК натуральных чисел n1 и n2.
@@ -310,7 +315,7 @@ class NaturalModule(Module):
             return NaturalNumber.from_digits([0])
         g = self.gcd(n1, n2)
         product = self.multiplication(n1, n2)
-        return self.quotient(product, g)  
+        return self.quotient(product, g)
 
     def call(self, identifier: Identifier, args: list[str]) -> Any:
         """
@@ -324,87 +329,87 @@ class NaturalModule(Module):
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.comparison(n1, n2)
-            
+
             case Identifier.NZER_N_B:
                 ensure_args(identifier, args, 1)
                 n = NaturalNumber.from_str(args[0])
                 return self.is_zero(n)
-            
+
             case Identifier.ADD_1N_N:
                 ensure_args(identifier, args, 1)
                 n = NaturalNumber.from_str(args[0])
                 return self.add_one(n)
-            
+
             case Identifier.ADD_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.adding(n1, n2)
-            
+
             case Identifier.SUB_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.subtracting(n1, n2)
-            
+
             case Identifier.MUL_ND_N:
                 ensure_args(identifier, args, 2)
                 n = NaturalNumber.from_str(args[0])
                 digit = int(args[1])
                 return self.multiply_by_digit(n, digit)
-            
+
             case Identifier.MUL_Nk_N:
                 ensure_args(identifier, args, 2)
                 n = NaturalNumber.from_str(args[0])
                 k = int(args[1])
                 return self.multiply_by_power_of_10(n, k)
-            
+
             case Identifier.MUL_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.multiplication(n1, n2)
-            
+
             case Identifier.SUB_NDN_N:
                 ensure_args(identifier, args, 3)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 digit = int(args[2])
                 return self.subtract_with_digit(n1, n2, digit)
-            
+
             case Identifier.DIV_NN_Dk:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.first_digit(n1, n2)
-            
+
             case Identifier.DIV_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.quotient(n1, n2)
-            
+
             case Identifier.MOD_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.modulus(n1, n2)
-            
+
             case Identifier.GCF_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.gcd(n1, n2)
-            
+
             case Identifier.LCM_NN_N:
                 ensure_args(identifier, args, 2)
                 n1 = NaturalNumber.from_str(args[0])
                 n2 = NaturalNumber.from_str(args[1])
                 return self.lcm(n1, n2)
-            
+
             case _:
                 raise UnknownIdentifierError(identifier)
-    
+
     def methods(self) -> set[Identifier]:
         """
         Возвращает множество идентификаторов методов, поддерживаемых модулем.
@@ -423,5 +428,5 @@ class NaturalModule(Module):
             Identifier.DIV_NN_N,
             Identifier.MOD_NN_N,
             Identifier.GCF_NN_N,
-            Identifier.LCM_NN_N
+            Identifier.LCM_NN_N,
         }

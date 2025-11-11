@@ -9,6 +9,7 @@ class ModuleGroup(Module):
     """
     Композитный тип для модулей.
     """
+
     def __init__(self, *modules: Module) -> None:
         self.__modules = modules
 
@@ -35,4 +36,3 @@ class ModuleGroup(Module):
         группы.
         """
         return reduce(lambda acc, cur: acc | cur.methods(), self.__modules, set())
-
