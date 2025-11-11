@@ -1,0 +1,89 @@
+---
+title: Использование
+description: Как использовать Hestia CLI
+sidebar:
+    order: 2
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components"
+
+## Синтаксис
+
+Общий синтаксис команды Hestia CLI имеет вид:
+
+```sh
+hestia --function <NAME> --args `<ARGS>`
+```
+
+Где:
+- `<NAME>` — Вызываемая функция. Можно передать как название (например, `ADD_NN_N`), так и номер (`N-4`).
+- `<ARGS>` — Аргументы, передаваемые в функцию, указанные через пробел.
+
+Если вы запускаете Hestia при помощи Docker или Podman:
+
+<Tabs syncKey="oci-platform">
+    <TabItem label="Docker">
+        ```sh
+        docker run ghcr.io/moevm4388/hestia:latest --function <NAME> --args `<ARGS>`
+        ```
+    </TabItem>
+    <TabItem label="Podman">
+        ```sh
+        podman run ghcr.io/moevm4388/hestia:latest --function <NAME> --args `<ARGS>`
+        ```
+    </TabItem>
+</Tabs>
+
+## Примеры использования
+
+1.  **Вывод справки**
+
+    ```sh
+    hestia --help
+    ```
+
+2.  **Вызов функции по названию**
+
+    ```sh
+    hestia --function ADD_NN_N --args 99999999999999999999999999999999 1
+    ```
+
+3.  **Вызов функции по номеру**
+
+    ```sh
+    hestia --function Q-1 --args 4/2
+    ```
+
+4.  **Команда с короткими флагами**
+
+    ```sh
+    hestia -f Q-5 -a 1/2 1/3
+    ```
+
+5.  **Передача аргументов, содержащих пробел**
+
+    Если аргументы содержат пробел, оберните их в кавычки (`""` или `''`).
+    Таким образом, оболочка командной строки передаст всю строку как один
+    аргумент.
+
+    ```sh
+    hestia --function P-1 --args "4 1 3" "1 2"
+    ```
+
+    :::tip[Совет]
+    
+    Многочлены передаются в виде коэффициентов канонической формы, начиная со свободного члена.
+    
+    Например, запись
+    
+    ```
+    1 0 1 2 3
+    ```
+    
+    Считывается как
+    
+    ```
+    3x⁴ + 2x³ + x² + 1
+    ```
+    
+    :::

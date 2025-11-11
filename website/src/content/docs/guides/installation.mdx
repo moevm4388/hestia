@@ -1,0 +1,78 @@
+---
+title: Установка и запуск
+description: Инструкции по установке и запуску Hestia
+sidebar:
+    order: 1
+---
+
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components"
+
+Hestia поставляется в виде CLI-приложения в различных форматах:
+
+1. AppImage
+2. OCI-образ (Docker/Podman)
+
+## AppImage
+
+AppImage &mdash; формат переносимых исполняемых файлов для Linux, которые не
+требуют установки в систему внешних зависимостей. Каждое приложение
+поставляется в одном автономном файле, содержащем все библиотеки, необходимые
+для запуска.
+
+Для запуска исполняемый файлов в формате AppImage необходимо наличие библиотеки
+`libfuse2` (на многих системах она установлена по умолчанию).
+
+<Steps>
+
+1.  Скачайте [`hestia-x86_64.AppImage`](https://github.com/moevm4388/hestia/releases/latest/download/hestia-x86_64.AppImage).
+
+2.  Установите файл командой ниже (укажите путь до скачанного файла)
+    ```sh
+    sudo install -m 755 /путь/до/hestia-x86_64.AppImage /usr/local/bin/hestia
+    ```
+3.  Запустите Hestia командой
+
+    ```sh
+    hestia --help
+    ```
+
+</Steps>
+
+## Docker
+
+Вы можете запустить Hestia при помощи [Docker](https://www.docker.com/) или
+[Podman](https://podman.io/), используя готовый
+[OCI-образ](https://github.com/moevm4388/hestia/pkgs/container/hestia).
+
+<Steps>
+
+1.  Скачайте образ
+    <Tabs syncKey="oci-platform">
+        <TabItem label="Docker">
+            ```sh
+            docker pull ghcr.io/moevm4388/hestia:latest
+            ```
+        </TabItem>
+        <TabItem label="Podman">
+            ```sh
+            podman pull ghcr.io/moevm4388/hestia:latest
+            ```
+        </TabItem>
+    </Tabs>
+
+
+2.  Запустите
+    <Tabs syncKey="oci-platform">
+        <TabItem label="Docker">
+            ```sh
+            docker run ghcr.io/moevm4388/hestia:latest --help
+            ```
+        </TabItem>
+        <TabItem label="Podman">
+            ```sh
+            podman run ghcr.io/moevm4388/hestia:latest --help
+            ```
+        </TabItem>
+    </Tabs>
+
+</Steps>
