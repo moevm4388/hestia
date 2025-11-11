@@ -4,4 +4,4 @@ LABEL org.opencontainers.image.source="https://github.com/moevm4388/hestia"
 COPY . /app
 WORKDIR /app
 
-ENTRYPOINT ["python", "hestia/main.py"]
+ENTRYPOINT ["python", "-m", "hestia.main"]

@@ -3,13 +3,13 @@ import sys
 from enum import Enum
 from typing import Any
 
-from common.exceptions import InvalidArgumentsError, UnknownIdentifierError
-from common.module_group import ModuleGroup
-from common.types import Identifier
-from natural import NaturalModule
-from integer import IntegerModule
-from rational import RationalModule
-from polynomial import PolynomialModule
+from hestia.common.exceptions import InvalidArgumentsError, UnknownIdentifierError
+from hestia.common.module_group import ModuleGroup
+from hestia.common.types import Identifier
+from hestia.natural import NaturalModule
+from hestia.integer import IntegerModule
+from hestia.rational import RationalModule
+from hestia.polynomial import PolynomialModule
 
 
 class ExitCode(int, Enum):

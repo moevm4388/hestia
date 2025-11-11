@@ -6,10 +6,11 @@
 - Митин Георгий
 """
 
-from common.exceptions import UnknownIdentifierError
-from common.types import Identifier, Module
-from common.utils import ensure_args
 from typing import Any
+
+from hestia.common.exceptions import UnknownIdentifierError
+from hestia.common.types import Identifier, Module
+from hestia.common.utils import ensure_args
 
 
 class NaturalNumber:
