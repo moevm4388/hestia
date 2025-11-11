@@ -2,10 +2,10 @@ APPDIR = hestia.AppDir
 APPIMAGE = hestia-x86_64.AppImage
 
 package_prepare:
+	test ! -d venv && python -m venv venv || true
 	mkdir -p target
 
 package_appimage: package_prepare
-	test ! -d venv && python -m venv venv || true
 	mkdir -p "${APPDIR}/opt"
 	mkdir -p "${APPDIR}/usr/lib"
 	cp -r hestia "${APPDIR}/opt"
@@ -16,5 +16,4 @@ package_appimage: package_prepare
 	mv "${APPIMAGE}" target
 
 clean:
-	rm -rf target
-
+	rm -rf target ${APPDIR}
