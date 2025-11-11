@@ -1,0 +1,15 @@
+[project]
+name = "hestia"
+version = "0.1.0"
+description = "Computer algebra system"
+readme = "README.md"
+authors = [
+    { name = "Ivan Shelepugin", email = "shelepuginivanm@gmail.com" },
+]
+requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://moevm4388.github.io/hestia"
+Documentation = "https://moevm4388.github.io/hestia"
+Repository = "https://github.com/moevm4388/hestia"
+Issues = "https://github.com/moevm4388/hestia/issues"
