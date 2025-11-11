@@ -59,6 +59,26 @@ class Identifier(str, Enum):
     DER_P_P = "P-12"
     NMR_P_P = "P-13"
 
+    @classmethod
+    def from_str(cls, s: str) -> "Identifier":
+        """
+        Конвертирует строку в идентификатор.
+
+        :param s: Исходная строка. Может быть как названием (COM_NN_D), так и номером (N-1)
+        :returns: Идентификатор
+        :raises ValueError: Если строку не соответствует ни одному идентификатору
+        """
+        try:
+            return Identifier[s]
+        except KeyError:
+            pass
+
+        for member in Identifier:
+            if member.value == s:
+                return member
+
+        raise ValueError(f"'{s}' is not a valid Identifier")
+
 
 class Module(metaclass=ABCMeta):
     """
