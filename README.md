@@ -5,8 +5,8 @@
 
 Система компьютерной алгебры
 
-&ensp;[<kbd> <br> Установка <br> </kbd>](https://moevm4388.github.io/hestia/guides/installation/)&ensp;
-&ensp;[<kbd> <br> Использование <br> </kbd>](https://moevm4388.github.io/hestia/guides/usage/)&ensp;
+&ensp;[<kbd> <br> Веб-интерфейс <br> </kbd>](https://moevm4388.github.io/hestia/web/overview)&ensp;
+&ensp;[<kbd> <br> CLI <br> </kbd>](https://moevm4388.github.io/hestia/cli/overview)&ensp;
 
 </div>
 
