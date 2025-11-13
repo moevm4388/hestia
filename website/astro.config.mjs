@@ -25,8 +25,8 @@ export default defineConfig({
             ],
             sidebar: [
                 {
-                    label: "Гайды",
-                    autogenerate: { directory: "guides" },
+                    label: "CLI",
+                    autogenerate: { directory: "cli" },
                 },
             ],
         }),
