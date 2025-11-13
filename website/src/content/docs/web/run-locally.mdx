@@ -1,0 +1,70 @@
+---
+title: Установка и запуск
+description: Инструкции по установке и запуску web-интерфейса Hestia
+sidebar:
+    order: 1
+---
+
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components"
+
+Web-интерфейс Hestia поставляется в виде
+[OCI-образа](https://github.com/moevm4388/hestia-web/pkgs/container/hestia-web),
+который можно запустить с помощью [Docker](https://www.docker.com/) или
+[Podman](https://podman.io/).
+
+<Steps>
+
+1.  Скачайте образ
+    <Tabs syncKey="oci-platform">
+        <TabItem label="Docker">
+            ```sh
+            docker pull ghcr.io/moevm4388/hestia-web:latest
+            ```
+        </TabItem>
+        <TabItem label="Podman">
+            ```sh
+            podman pull ghcr.io/moevm4388/hestia-web:latest
+            ```
+        </TabItem>
+    </Tabs>
+
+
+2.  Запустите контейнер
+    <Tabs syncKey="oci-platform">
+        <TabItem label="Docker">
+            ```sh
+            docker run -p 8000:80 ghcr.io/moevm4388/hestia-web:latest
+            ```
+        </TabItem>
+        <TabItem label="Podman">
+            ```sh
+            podman run -p 8000:80 ghcr.io/moevm4388/hestia-web:latest
+            ```
+        </TabItem>
+    </Tabs>
+
+3.  Откройте http://localhost:8000 в вашем браузере.
+
+</Steps>
+
+:::tip
+
+Вы можете изменить порт, на котором запускается контейнер. Для этого укажите
+его в команде:
+
+<Tabs>
+    <Tabs syncKey="oci-platform">
+        <TabItem label="Docker">
+            ```sh /<порт>/
+            docker run -p <порт>:80 ghcr.io/moevm4388/hestia-web:latest
+            ```
+        </TabItem>
+        <TabItem label="Podman">
+            ```sh /<порт>/
+            podman run -p <порт>:80 ghcr.io/moevm4388/hestia-web:latest
+            ```
+        </TabItem>
+    </Tabs>
+</Tabs>
+
+:::

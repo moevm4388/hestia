@@ -19,7 +19,10 @@ import { Comment, Heading } from '@components/landing';
 import { getCollection } from 'astro:content'
 
 <CardGrid stagger>
-	<Card title="CLI" icon="right-caret">
+    <Card title="Web-интерфейс" icon="laptop">
+        Удобный и современный web-интерфейс.
+    </Card>
+	<Card title="CLI" icon="seti:powershell">
         Интерфейс командной строки для вызова функций модулей системы. Идеально
         подходит для скриптов и автоматизации.
 	</Card>
@@ -27,9 +30,9 @@ import { getCollection } from 'astro:content'
         Используйте Hestia как вычислительную библиотеку для Python, с понятной
         и расширяемой архитектурой и идиоматичным API.
 	</Card>
-	<Card title="OCI образ" icon="seti:docker">
+	<Card title="OCI образы" icon="seti:docker">
         Запускайте и используйте Hestia при помощи Docker или Podman, используя
-        готовый OCI образ.
+        готовые OCI образы.
 	</Card>
 </CardGrid>
 

@@ -25,6 +25,10 @@ export default defineConfig({
             ],
             sidebar: [
                 {
+                    label: "Web-интерфейс",
+                    autogenerate: { directory: "web" },
+                },
+                {
                     label: "CLI",
                     autogenerate: { directory: "cli" },
                 },
