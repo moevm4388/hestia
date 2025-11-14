@@ -12,6 +12,10 @@ Web-интерфейс Hestia поставляется в виде
 который можно запустить с помощью [Docker](https://www.docker.com/) или
 [Podman](https://podman.io/).
 
+Вы также можете [запустить сервер вручную](#запуск-вручную).
+
+## Docker/Podman
+
 <Steps>
 
 1.  Скачайте образ
@@ -43,7 +47,7 @@ Web-интерфейс Hestia поставляется в виде
         </TabItem>
     </Tabs>
 
-3.  Откройте http://localhost:8000 в вашем браузере.
+3.  Откройте http://localhost:8000 в вашем браузере
 
 </Steps>
 
@@ -68,3 +72,47 @@ Web-интерфейс Hestia поставляется в виде
 </Tabs>
 
 :::
+
+## Запуск вручную
+
+<Steps>
+
+1.  Склонируйте репозиторий
+    ```sh
+    git clone --depth 1 git@github.com:moevm4388/hestia-web.git
+    ```
+
+2.  Перейдите в директорию репозитория
+    ```
+    cd hestia-web
+    ```
+
+3.  Создайте виртуальное окружение Python
+    <Tabs syncKey="operating-system">
+        <TabItem label="Windows">
+            ```powershell
+            python -m venv venv
+            .\venv\Scripts\activate
+            ```
+        </TabItem>
+        <TabItem label="Linux/macOS">
+            ```sh
+            python3 -m venv venv
+            source venv/bin/activate
+            ```
+        </TabItem>
+    </Tabs>
+    
+4.  Установите зависимости
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+5.  Запустите сервер
+    ```sh
+    fastapi run
+    ```
+
+6.  Откройте http://localhost:8000 в вашем браузере
+
+</Steps>
