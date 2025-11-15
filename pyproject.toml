@@ -8,6 +8,9 @@ authors = [
 ]
 requires-python = ">=3.10"
 
+[project.scripts]
+hestia = "hestia.main:main"
+
 [project.urls]
 Homepage = "https://moevm4388.github.io/hestia"
 Documentation = "https://moevm4388.github.io/hestia"
