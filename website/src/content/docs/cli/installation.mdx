@@ -9,8 +9,32 @@ import { Steps, Tabs, TabItem } from "@astrojs/starlight/components"
 
 Hestia поставляется в виде CLI-приложения в различных форматах:
 
-1. AppImage
-2. OCI-образ (Docker/Podman)
+1. [pip](#pip)
+2. [AppImage](#appimage)
+3. [OCI-образ](#docker) (Docker/Podman)
+
+## pip
+
+:::note[К сведению]
+
+Если вы используете Linux, `pip` не позволит установить пакет без виртуального
+окружения. Используйте [`pipx`](https://repology.org/project/pipx/versions).
+
+:::
+
+<Steps>
+
+1.  Установите пакет при помощи `pip`:
+    ```sh
+    pip install git+https://github.com/moevm4388/hestia.git
+    ```
+
+2.  Запустите Hestia CLI командой:
+    ```
+    hestia --help
+    ```
+
+</Steps>
 
 ## AppImage
 
