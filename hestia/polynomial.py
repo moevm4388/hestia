@@ -3,6 +3,7 @@
 
 Авторы:
 - Кислица Сергей <andret23232347@mail.ru>
+- Шарапов Даниил <sharapowdanya@gmail.com>
 """
 
 from hestia.common.exceptions import UnknownIdentifierError
@@ -123,16 +124,49 @@ class Polynomial:
         :param s: строка с коэффициентами через пробел (от младших к старшим)
         :returns: новый многочлен
         """
-        coefficients = []
-        for coef_str in s.split():
-            if "/" in coef_str:
-                # Рациональное число
-                rational = RationalNumber.from_str(coef_str)
-                coefficients.append(rational)
+        terms = s.replace("-", "+-").split("+")
+        # Старший член
+        if terms[0] == "":
+            terms.pop(0)
+        leading_term = terms[0]
+        
+        if "x" in leading_term:
+            if "^" in leading_term:
+                leading_coef, leading_pow = leading_term.strip().split("x^")
             else:
-                # Целое число
-                integer = Integer.from_str(coef_str)
-                coefficients.append(RationalNumber(integer, NaturalNumber(1)))
+                leading_coef, leading_pow = leading_term.strip().split("x")[0], "1"
+        else:
+            leading_coef, leading_pow = leading_term.strip(), "0"
+        
+        # "" -> 1, "-" -> -1
+        leading_coef = leading_coef.strip()
+        if leading_coef in ("", "-"):
+            leading_coef += "1"
+            
+        
+        # Список коэффициентов (индекс = степень члена)
+        coefficients = [
+            RationalNumber(Integer(0), NaturalNumber(1)) \
+                for _ in range(int(leading_pow) + 1)
+        ]
+        
+        coefficients[int(leading_pow)] = RationalNumber.from_str(leading_coef)
+        
+        # Остальные члены
+        for term in terms[1:]:
+            if "x" in term:
+                if "^" in term:
+                    coef, pow = term.strip().split("x^")
+                else:
+                    coef, pow = term.strip().split("x")[0], 1
+            else:
+                coef, pow = term.strip(), 0
+            
+            coef = coef.strip()
+            if coef in ("", "-"):
+                coef += "1"
+            
+            coefficients[int(pow)] = RationalNumber.from_str(coef)
 
         return cls(coefficients)
 
