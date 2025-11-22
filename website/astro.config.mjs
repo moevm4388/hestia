@@ -15,6 +15,8 @@ export default defineConfig({
     integrations: [
         starlight({
             defaultLocale: "ru",
+            favicon: "/favicon.png",
+            customCss: ["./src/css/theme.css"],
             title: { ru: "Hestia", en: "Hestia" },
             social: [
                 {

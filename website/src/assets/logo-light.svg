@@ -14,7 +14,7 @@
     <!-- Белое свечение -->
     <filter id="whiteGlow" x="-60%" y="-60%" width="220%" height="220%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"></feGaussianBlur>
-      <feFlood flood-color="#ffffff" flood-opacity="0.40" result="flood"></feFlood>
+      <feFlood flood-color="#18181b" flood-opacity="0.40" result="flood"></feFlood>
       <feComposite in="flood" in2="blur" operator="in" result="maskGlow"></feComposite>
       <feMerge>
         <feMergeNode in="maskGlow"></feMergeNode>
@@ -23,20 +23,18 @@
     </filter>
   </defs>
 
-  <rect width="240" height="240" fill="#18181b"></rect>
-
   <!-- Ленты -->
   <path d="M60 40 C120 80, 120 160, 60 200" stroke="url(#leftRibbon)" stroke-width="16" fill="none" stroke-linecap="round"></path>
 
   <path d="M180 40 C120 80, 120 160, 180 200" stroke="url(#rightRibbon)" stroke-width="16" fill="none" stroke-linecap="round"></path>
 
-  <!-- H (перемычка = толщина стоек) -->
+  <!-- H со свечением -->
   <g filter="url(#whiteGlow)">
     <!-- Левая стойка -->
-    <rect x="70" y="32" width="20" height="176" rx="10" ry="10" fill="#ffffff"></rect>
+    <rect x="70" y="32" width="20" height="176" rx="10" ry="10" fill="#18181b"></rect>
     <!-- Правая стойка -->
-    <rect x="150" y="32" width="20" height="176" rx="10" ry="10" fill="#ffffff"></rect>
-    <!-- Перемычка (высота 20, как у стоек) -->
-    <rect x="70" y="112" width="100" height="20" rx="10" ry="10" fill="#ffffff"></rect>
+    <rect x="150" y="32" width="20" height="176" rx="10" ry="10" fill="#18181b"></rect>
+    <!-- Перемычка -->
+    <rect x="70" y="112" width="100" height="20" rx="10" ry="10" fill="#18181b"></rect>
   </g>
 </svg>
