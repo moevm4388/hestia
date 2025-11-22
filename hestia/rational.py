@@ -53,13 +53,17 @@ class RationalNumber:
         """
         s = s.split("/")
         if len(s) != 2:
-            raise ValueError("Невозможно создать рациональное число из поданной строки")
+            try:
+                numerator = Integer.from_str(s[0])
+                denominator = NaturalNumber(1)
+            except ValueError:
+                raise ValueError("Невозможно создать рациональное число из поданной строки")
+        else:
+            numerator = Integer.from_str(s[0])
+            denominator = NaturalNumber.from_str(s[1])
 
-        numerator = Integer.from_str(s[0])
-        denominator = NaturalNumber.from_str(s[1])
-
-        if denominator == NaturalNumber(0):
-            raise ValueError("Знаменатель не может быть нулем")
+            if denominator == NaturalNumber(0):
+                raise ValueError("Знаменатель не может быть нулем")
 
         return cls(numerator, denominator)
 
